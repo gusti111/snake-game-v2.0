@@ -1,0 +1,171 @@
+/* ============================================================
+   [PENGEMBANGAN] Reset dan box-sizing untuk konsistensi semua browser
+   ============================================================ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ============================================================
+   [PERCOBAAN] Styling dasar body dan canvas
+   ============================================================ */
+body {
+  background: #1a1a2e;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: #eee;
+  /* [PENGEMBANGAN] Padding atas-bawah agar tidak mepet di layar kecil */
+  padding: 12px 8px 20px;
+  /* [PENGEMBANGAN] Cegah scroll horizontal di HP */
+  overflow-x: hidden;
+}
+
+h1 {
+  font-size: clamp(1.2rem, 4vw, 2rem); /* [PENGEMBANGAN] Ukuran judul responsif */
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  color: #4ecca3;
+  text-shadow: 0 0 12px #4ecca380;
+}
+
+/* [PERCOBAAN] Border canvas sebagai batas area permainan */
+canvas {
+  border: 3px solid #4ecca3;
+  border-radius: 6px;
+  background: #0f3460;
+  box-shadow: 0 0 30px #4ecca340;
+  display: block;
+  /* [PENGEMBANGAN] Canvas mengikuti lebar layar, maksimal 400px */
+  width: min(400px, 96vw);
+  height: min(400px, 96vw);
+}
+
+/* ============================================================
+   [UPGRADE LATIHAN] Styling info bar skor, level, speed
+   ============================================================ */
+#info-bar {
+  display: flex;
+  gap: clamp(12px, 5vw, 32px); /* [PENGEMBANGAN] Gap responsif */
+  margin-bottom: 6px;
+  font-size: clamp(0.8rem, 3vw, 1rem); /* [PENGEMBANGAN] Font responsif */
+  font-weight: 600;
+}
+
+#info-bar span {
+  color: #4ecca3;
+}
+
+/* ============================================================
+   [PENGEMBANGAN] Best score bar
+   ============================================================ */
+#best-bar {
+  font-size: clamp(0.75rem, 2.8vw, 0.9rem);
+  color: #ffd700;
+  margin-bottom: 8px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+#bestDisplay {
+  color: #fff;
+}
+
+/* ============================================================
+   [PENGEMBANGAN] Tombol D-Pad untuk kontrol di HP
+   ============================================================ */
+#dpad {
+  display: grid;
+  grid-template-columns: repeat(3, 48px);
+  grid-template-rows: repeat(2, 48px);
+  gap: 4px;
+  margin-top: 10px;
+}
+
+#dpad button {
+  width: 48px;
+  height: 48px;
+  font-size: 1.2rem;
+  background: #16213e;
+  color: #4ecca3;
+  border: 2px solid #4ecca3;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.1s;
+  touch-action: manipulation;
+}
+
+#dpad button:active {
+  background: #4ecca3;
+  color: #1a1a2e;
+}
+
+/* Sembunyikan D-Pad di layar lebar (bukan HP) */
+@media (min-width: 600px) {
+  #dpad { display: none; }
+}
+
+/* ============================================================
+   [UPGRADE LATIHAN] Styling panel level dan tombol lanjut level
+   ============================================================ */
+#levelPanel {
+  margin-top: 14px;
+  background: #16213e;
+  border: 2px solid #4ecca3;
+  border-radius: 10px;
+  padding: 20px 32px;
+  text-align: center;
+  display: none;
+  /* [PENGEMBANGAN] Lebar responsif di HP */
+  width: min(380px, 94vw);
+}
+
+#levelPanel.visible {
+  display: block;
+}
+
+#levelText {
+  font-size: clamp(1.1rem, 4vw, 1.6rem);
+  color: #4ecca3;
+  letter-spacing: 3px;
+  margin-bottom: 6px;
+}
+
+#scoreText {
+  font-size: clamp(0.8rem, 3vw, 1rem);
+  color: #aaa;
+  margin-bottom: 14px;
+}
+
+#nextLevelBtn {
+  padding: 10px 24px;
+  font-size: clamp(0.85rem, 3vw, 1rem);
+  font-weight: 700;
+  background: #4ecca3;
+  color: #1a1a2e;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: background 0.2s;
+}
+
+#nextLevelBtn:hover {
+  background: #38b2ac;
+}
+
+/* ============================================================
+   [UPGRADE TUGAS] Warna border canvas berubah sesuai level aktif
+   ============================================================ */
+body.lvl-1 canvas { border-color: #a8ff78; box-shadow: 0 0 30px #a8ff7840; }
+body.lvl-2 canvas { border-color: #78ffd6; box-shadow: 0 0 30px #78ffd640; }
+body.lvl-3 canvas { border-color: #ffd700; box-shadow: 0 0 30px #ffd70040; }
+body.lvl-4 canvas { border-color: #ff8c42; box-shadow: 0 0 30px #ff8c4240; }
+body.lvl-5 canvas { border-color: #ff4e50; box-shadow: 0 0 30px #ff4e5040; }

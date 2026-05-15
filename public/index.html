@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <!-- [PENGEMBANGAN] Viewport meta agar tampilan responsif di semua perangkat -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Snake Game</title>
+  <!-- [PERCOBAAN] Link stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- [PERCOBAAN] Judul game -->
+  <h1>🐍 Snake Game</h1>
+
+  <!-- [UPGRADE LATIHAN] Info bar: skor, level, speed -->
+  <div id="info-bar">
+    <div>Skor: <span id="scoreDisplay">0</span></div>
+    <div>Level: <span id="levelDisplay">Level 1</span></div>
+    <div>Speed: <span id="speedDisplay">250ms</span></div>
+  </div>
+
+  <!-- [PENGEMBANGAN] Best score bar -->
+  <div id="best-bar">
+    🏆 Best Score: <span id="bestDisplay">0</span>
+  </div>
+
+  <!-- [PERCOBAAN] Canvas sebagai drawing area (area gambar) game -->
+  <canvas id="game"></canvas>
+
+  <!-- [PENGEMBANGAN] Tombol kontrol arah untuk perangkat mobile (HP) -->
+  <div id="dpad">
+    <div></div>
+    <button id="btn-up"   aria-label="Atas">▲</button>
+    <div></div>
+    <button id="btn-left" aria-label="Kiri">◀</button>
+    <button id="btn-down" aria-label="Bawah">▼</button>
+    <button id="btn-right"aria-label="Kanan">▶</button>
+  </div>
+
+  <!-- [UPGRADE LATIHAN] Panel level: muncul saat naik level -->
+  <div id="levelPanel">
+    <h2 id="levelText"></h2>
+    <p id="scoreText"></p>
+    <button id="nextLevelBtn">▶ Lanjut Level</button>
+  </div>
+
+  <!-- [PERCOBAAN] Link ke file logika game -->
+  <script src="game.js"></script>
+
+</body>
+</html>
