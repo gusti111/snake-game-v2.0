@@ -8,23 +8,23 @@
 // Titik (0,0) ada di pojok kiri atas layar (sistem koordinat)
 // ============================================================
 const canvas = document.getElementById("game");
-const ctx    = canvas.getContext("2d");
+const ctx = canvas.getContext("2d");
 
 
 // ============================================================
 // [UPGRADE LATIHAN] REFERENSI ELEMEN UI PANEL LEVEL
 // Elemen HTML untuk menampilkan info level dan tombol lanjut
 // ============================================================
-const levelPanel   = document.getElementById("levelPanel");
-const levelText    = document.getElementById("levelText");
-const scoreText    = document.getElementById("scoreText");
+const levelPanel = document.getElementById("levelPanel");
+const levelText = document.getElementById("levelText");
+const scoreText = document.getElementById("scoreText");
 const nextLevelBtn = document.getElementById("nextLevelBtn");
 const scoreDisplay = document.getElementById("scoreDisplay");
 const levelDisplay = document.getElementById("levelDisplay");
 const speedDisplay = document.getElementById("speedDisplay");
 
 // [PENGEMBANGAN] Referensi elemen best score
-const bestDisplay  = document.getElementById("bestDisplay");
+const bestDisplay = document.getElementById("bestDisplay");
 
 
 // ============================================================
@@ -44,11 +44,11 @@ const bestDisplay  = document.getElementById("bestDisplay");
 // Skor threshold: 25 / 50 / 75 / 100 / >100
 // ============================================================
 const LEVELS = [
-  { name: "Level 1", scoreLimit: 25,       speed: 250, wrap: true,  color: "#a8ff78", cssClass: "lvl-1" },
-  { name: "Level 2", scoreLimit: 50,       speed: 200, wrap: true,  color: "#78ffd6", cssClass: "lvl-2" },
-  { name: "Level 3", scoreLimit: 75,       speed: 150, wrap: true,  color: "#ffd700", cssClass: "lvl-3" },
-  { name: "Level 4", scoreLimit: 100,      speed: 100, wrap: false, color: "#ff8c42", cssClass: "lvl-4" },
-  { name: "Level 5", scoreLimit: Infinity, speed: 50,  wrap: false, color: "#ff4e50", cssClass: "lvl-5" },
+  { name: "Level 1", scoreLimit: 25, speed: 250, wrap: true, color: "#a8ff78", cssClass: "lvl-1" },
+  { name: "Level 2", scoreLimit: 50, speed: 200, wrap: true, color: "#78ffd6", cssClass: "lvl-2" },
+  { name: "Level 3", scoreLimit: 75, speed: 150, wrap: true, color: "#ffd700", cssClass: "lvl-3" },
+  { name: "Level 4", scoreLimit: 100, speed: 100, wrap: false, color: "#ff8c42", cssClass: "lvl-4" },
+  { name: "Level 5", scoreLimit: Infinity, speed: 50, wrap: false, color: "#ff4e50", cssClass: "lvl-5" },
 ];
 
 
@@ -69,16 +69,16 @@ let bestScore = parseInt(localStorage.getItem("snakeBestScore")) || 0;
 // Canvas menyesuaikan layar perangkat (HP/laptop/tablet)
 // Ukuran grid selalu kelipatan 20 agar grid tetap rapi
 // ============================================================
-const CELL  = 20;  // ukuran satu sel grid dalam piksel
-let   COLS  = 20;  // jumlah kolom grid
-let   ROWS  = 20;  // jumlah baris grid
+const CELL = 20;  // ukuran satu sel grid dalam piksel
+let COLS = 20;  // jumlah kolom grid
+let ROWS = 20;  // jumlah baris grid
 
 function resizeCanvas() {
   // ambil ukuran terkecil antara 400px dan 96% lebar layar
   const size = Math.min(400, Math.floor(window.innerWidth * 0.96 / CELL) * CELL);
-  canvas.width  = size;
+  canvas.width = size;
   canvas.height = size;
-  COLS = canvas.width  / CELL;
+  COLS = canvas.width / CELL;
   ROWS = canvas.height / CELL;
 }
 
@@ -89,7 +89,7 @@ window.addEventListener("resize", () => {
   // posisi ulang ular agar tidak keluar canvas setelah resize
   if (snake) {
     snake = snake.map(s => ({
-      x: Math.min(s.x, canvas.width  - CELL),
+      x: Math.min(s.x, canvas.width - CELL),
       y: Math.min(s.y, canvas.height - CELL)
     }));
   }
@@ -104,11 +104,11 @@ function initGame() {
   // posisi awal kepala ular di tengah canvas
   const startX = Math.floor(COLS / 2) * CELL;
   const startY = Math.floor(ROWS / 2) * CELL;
-  snake    = [{ x: startX, y: startY }];
-  dx       = CELL;   // gerak awal ke kanan
-  dy       = 0;
-  food     = generateFood();
-  score    = 0;
+  snake = [{ x: startX, y: startY }];
+  dx = CELL;   // gerak awal ke kanan
+  dy = 0;
+  food = generateFood();
+  score = 0;
   gameOver = false;
 
   // [UPGRADE LATIHAN] Reset level dan pause
@@ -163,7 +163,7 @@ function drawSnake() {
       ctx.fillStyle = "#1a1a2e";
       const ex = dx > 0 ? 13 : dx < 0 ? 4 : 6;
       const ey = dy > 0 ? 13 : dy < 0 ? 4 : 6;
-      ctx.beginPath(); ctx.arc(part.x + ex,                       part.y + ey,                       2, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(part.x + ex, part.y + ey, 2, 0, Math.PI * 2); ctx.fill();
       ctx.beginPath(); ctx.arc(part.x + ex + (dy !== 0 ? 7 : 0), part.y + ey + (dx !== 0 ? 7 : 0), 2, 0, Math.PI * 2); ctx.fill();
     }
   });
@@ -193,7 +193,7 @@ function drawFood() {
 // ============================================================
 function drawScore() {
   ctx.fillStyle = "rgba(255,255,255,0.25)";
-  ctx.font      = "13px Arial";
+  ctx.font = "13px Arial";
   ctx.fillText("Score: " + score, 8, 18);
   // [UPGRADE LATIHAN] Tampilkan nama level di kanan atas
   ctx.fillText(LEVELS[levelIndex].name, canvas.width - 70, 18);
@@ -209,21 +209,21 @@ function drawGameOver() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   ctx.fillStyle = "#ff4e50";
-  ctx.font      = "bold 36px Arial";
+  ctx.font = "bold 36px Arial";
   ctx.textAlign = "center";
   ctx.fillText("GAME OVER", canvas.width / 2, canvas.height / 2 - 40);
 
   ctx.fillStyle = "#eee";
-  ctx.font      = "18px Arial";
+  ctx.font = "18px Arial";
   ctx.fillText("Skor Akhir: " + score, canvas.width / 2, canvas.height / 2);
 
   // [PENGEMBANGAN] Tampilkan best score di layar game over
   ctx.fillStyle = "#ffd700";
-  ctx.font      = "14px Arial";
+  ctx.font = "14px Arial";
   ctx.fillText("🏆 Best Score: " + bestScore, canvas.width / 2, canvas.height / 2 + 28);
 
   ctx.fillStyle = "#aaa";
-  ctx.font      = "13px Arial";
+  ctx.font = "13px Arial";
   ctx.fillText("Enter / Klik / Tap untuk main lagi", canvas.width / 2, canvas.height / 2 + 56);
   ctx.textAlign = "left";
 }
@@ -236,7 +236,7 @@ function drawGameOver() {
 // ============================================================
 function moveSnake() {
   const cfg = LEVELS[levelIndex];
-  let head  = {
+  let head = {
     x: snake[0].x + dx,
     y: snake[0].y + dy
   };
@@ -244,15 +244,15 @@ function moveSnake() {
   // [UPGRADE LATIHAN] Perilaku dinding: wrap (tembus) atau mati
   if (cfg.wrap) {
     // wrap kanan → kiri dan sebaliknya
-    if (head.x >= canvas.width)  head.x = 0;
-    if (head.x < 0)              head.x = canvas.width - CELL;
+    if (head.x >= canvas.width) head.x = 0;
+    if (head.x < 0) head.x = canvas.width - CELL;
     // wrap bawah → atas dan sebaliknya
     if (head.y >= canvas.height) head.y = 0;
-    if (head.y < 0)              head.y = canvas.height - CELL;
+    if (head.y < 0) head.y = canvas.height - CELL;
   } else {
     // [UPGRADE LATIHAN] Tabrak dinding = game over (mode hard)
     if (head.x < 0 || head.x >= canvas.width ||
-        head.y < 0 || head.y >= canvas.height) {
+      head.y < 0 || head.y >= canvas.height) {
       gameOver = true;
     }
   }
@@ -270,7 +270,7 @@ function moveSnake() {
 function checkFood() {
   if (snake[0].x === food.x && snake[0].y === food.y) {
     snake.push({});        // tambah satu segmen ekor
-    food   = generateFood();
+    food = generateFood();
     score += 1;
 
     // [PENGEMBANGAN] Perbarui best score jika skor saat ini lebih tinggi
@@ -414,10 +414,10 @@ nextLevelBtn.addEventListener("click", () => {
 document.addEventListener("keydown", (e) => {
   const key = e.key;
 
-  if      (key === "ArrowUp"    && dy === 0) { dx =     0; dy = -CELL; e.preventDefault(); }
-  else if (key === "ArrowDown"  && dy === 0) { dx =     0; dy =  CELL; e.preventDefault(); }
-  else if (key === "ArrowLeft"  && dx === 0) { dx = -CELL; dy =     0; e.preventDefault(); }
-  else if (key === "ArrowRight" && dx === 0) { dx =  CELL; dy =     0; e.preventDefault(); }
+  if (key === "ArrowUp" && dy === 0) { dx = 0; dy = -CELL; e.preventDefault(); }
+  else if (key === "ArrowDown" && dy === 0) { dx = 0; dy = CELL; e.preventDefault(); }
+  else if (key === "ArrowLeft" && dx === 0) { dx = -CELL; dy = 0; e.preventDefault(); }
+  else if (key === "ArrowRight" && dx === 0) { dx = CELL; dy = 0; e.preventDefault(); }
 
   // restart saat game over
   if (gameOver && key === "Enter") {
@@ -435,13 +435,13 @@ document.addEventListener("keydown", (e) => {
 canvas.addEventListener("click", (e) => {
   if (gameOver) { initGame(); gameLoop(); return; }
 
-  const rect   = canvas.getBoundingClientRect();
+  const rect = canvas.getBoundingClientRect();
   // [PENGEMBANGAN] Skala koordinat klik agar akurat di canvas responsif
-  const scaleX = canvas.width  / rect.width;
+  const scaleX = canvas.width / rect.width;
   const scaleY = canvas.height / rect.height;
   const mouseX = (e.clientX - rect.left) * scaleX;
-  const mouseY = (e.clientY - rect.top)  * scaleY;
-  const head   = snake[0];
+  const mouseY = (e.clientY - rect.top) * scaleY;
+  const head = snake[0];
 
   const diffX = mouseX - head.x;
   const diffY = mouseY - head.y;
@@ -463,6 +463,14 @@ canvas.addEventListener("click", (e) => {
 let touchStartX = 0, touchStartY = 0;
 
 canvas.addEventListener("touchstart", (e) => {
+  // INTERSEPSI ABSOLUT: Jika game over, sentuhan apa pun akan merestart game
+  if (gameOver) {
+    initGame();
+    gameLoop();
+    e.preventDefault();
+    return;
+  }
+
   touchStartX = e.touches[0].clientX;
   touchStartY = e.touches[0].clientY;
   e.preventDefault();
@@ -476,10 +484,10 @@ canvas.addEventListener("touchend", (e) => {
   if (Math.abs(tdx) < 10 && Math.abs(tdy) < 10) return;
 
   if (Math.abs(tdx) > Math.abs(tdy)) {
-    if (tdx > 0 && dx === 0)  { dx =  CELL; dy = 0; }
+    if (tdx > 0 && dx === 0) { dx = CELL; dy = 0; }
     else if (tdx < 0 && dx === 0) { dx = -CELL; dy = 0; }
   } else {
-    if (tdy > 0 && dy === 0)  { dx = 0; dy =  CELL; }
+    if (tdy > 0 && dy === 0) { dx = 0; dy = CELL; }
     else if (tdy < 0 && dy === 0) { dx = 0; dy = -CELL; }
   }
   e.preventDefault();
@@ -490,13 +498,13 @@ canvas.addEventListener("touchend", (e) => {
 // [PENGEMBANGAN] TOMBOL D-PAD (KONTROL HP)
 // Tombol arah fisik di layar untuk perangkat tanpa keyboard
 // ============================================================
-document.getElementById("btn-up").addEventListener("click",    () => { if (dy === 0)  { dx =     0; dy = -CELL; } });
-document.getElementById("btn-down").addEventListener("click",  () => { if (dy === 0)  { dx =     0; dy =  CELL; } });
-document.getElementById("btn-left").addEventListener("click",  () => { if (dx === 0)  { dx = -CELL; dy =     0; } });
-document.getElementById("btn-right").addEventListener("click", () => { if (dx === 0)  { dx =  CELL; dy =     0; } });
+document.getElementById("btn-up").addEventListener("click", () => { if (dy === 0) { dx = 0; dy = -CELL; } });
+document.getElementById("btn-down").addEventListener("click", () => { if (dy === 0) { dx = 0; dy = CELL; } });
+document.getElementById("btn-left").addEventListener("click", () => { if (dx === 0) { dx = -CELL; dy = 0; } });
+document.getElementById("btn-right").addEventListener("click", () => { if (dx === 0) { dx = CELL; dy = 0; } });
 
 // Touch events D-Pad (agar responsif di HP tanpa delay)
-["btn-up","btn-down","btn-left","btn-right"].forEach(id => {
+["btn-up", "btn-down", "btn-left", "btn-right"].forEach(id => {
   document.getElementById(id).addEventListener("touchstart", (e) => {
     e.preventDefault();
     e.target.click();
