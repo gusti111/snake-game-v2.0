@@ -26,6 +26,25 @@ Snake Game v2.0 extends the classic grid-based Snake experience with a responsiv
 - Level transition panel and restart-oriented gameplay flow.
 - Visual particle effects and responsive canvas sizing.
 
+## Game flow
+
+```mermaid
+flowchart TD
+    A["Open the browser game"] --> B["Initialize canvas and saved best score"]
+    B --> C["Start a new run"]
+    C --> D["Move the snake using keyboard or touch controls"]
+    D --> E["Collect food"]
+    E --> F["Update score and progression"]
+    F --> G{"Level threshold reached?"}
+    G -->|Yes| H["Show level transition"]
+    H --> I["Apply next level rules and speed"]
+    G -->|No| J{"Collision?"}
+    I --> J
+    J -->|No| D
+    J -->|Yes| K["End run and update local best score"]
+    K --> C
+```
+
 ## Technology
 
 - HTML5
